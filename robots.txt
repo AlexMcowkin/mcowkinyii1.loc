@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /assets/
+Disallow: /css/
+Disallow: /protected/
+Disallow: /HELP_FILES/
+Disallow: /themes/
+
+HOST: site.loc/
+Sitemap: http://www.site.loc/sitemap.xml

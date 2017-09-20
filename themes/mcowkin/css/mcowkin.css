@@ -1,0 +1,8 @@
+.autocomplete-suggestion{
+    z-index: 9999;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+.autocomplete-suggestion:hover{
+	background-color: #f4d0fb;
+}
