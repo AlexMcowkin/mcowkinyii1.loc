@@ -12,7 +12,7 @@ class SearchForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			array('flyfrom, flyto, flydatedep, flydatearr, flycurrency', 'required'),
+			array('flyfrom, flyto, flydatedep, flycurrency', 'required'),
 			array(
 			  'flyto',
 			  'compare',
@@ -21,7 +21,7 @@ class SearchForm extends CFormModel
 			  'allowEmpty'=>false , 
 			  'message'=>'"Departure City" must not be equal "Arrival City"'
 			),
-			array('flyfromhid, flytohid', 'safe'),
+			array('flyfromhid, flytohid, flydatearr', 'safe'),
 		);
 	}
 

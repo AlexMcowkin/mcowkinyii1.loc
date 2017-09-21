@@ -1,0 +1,169 @@
+stdClass Object
+(
+    [Quotes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [QuoteId] => 1
+                    [MinPrice] => 2721
+                    [Direct] => 1
+                    [OutboundLeg] => stdClass Object
+                        (
+                            [CarrierIds] => Array
+                                (
+                                    [0] => 1717
+                                )
+
+                            [OriginId] => 63446
+                            [DestinationId] => 82495
+                            [DepartureDate] => 2017-09-24T00:00:00
+                        )
+
+                    [QuoteDateTime] => 2017-09-20T20:31:50
+                )
+
+            [1] => stdClass Object
+                (
+                    [QuoteId] => 2
+                    [MinPrice] => 2425
+                    [Direct] => 1
+                    [OutboundLeg] => stdClass Object
+                        (
+                            [CarrierIds] => Array
+                                (
+                                    [0] => 242
+                                )
+
+                            [OriginId] => 63446
+                            [DestinationId] => 88879
+                            [DepartureDate] => 2017-09-24T00:00:00
+                        )
+
+                    [QuoteDateTime] => 2017-09-20T20:31:50
+                )
+
+            [2] => stdClass Object
+                (
+                    [QuoteId] => 3
+                    [MinPrice] => 1954
+                    [Direct] => 1
+                    [OutboundLeg] => stdClass Object
+                        (
+                            [CarrierIds] => Array
+                                (
+                                    [0] => 1687
+                                )
+
+                            [OriginId] => 63446
+                            [DestinationId] => 47493
+                            [DepartureDate] => 2017-09-24T00:00:00
+                        )
+
+                    [QuoteDateTime] => 2017-09-21T06:03:00
+                )
+
+        )
+
+    [Places] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [PlaceId] => 47493
+                    [IataCode] => DME
+                    [Name] => Москва Домодедово
+                    [Type] => Station
+                    [SkyscannerCode] => DME
+                    [CityName] => Москва
+                    [CityId] => MOSC
+                    [CountryName] => Россия
+                )
+
+            [1] => stdClass Object
+                (
+                    [PlaceId] => 63446
+                    [IataCode] => KIV
+                    [Name] => Кишинёв
+                    [Type] => Station
+                    [SkyscannerCode] => KIV
+                    [CityName] => Кишинёв
+                    [CityId] => KIVA
+                    [CountryName] => Молдавия
+                )
+
+            [2] => stdClass Object
+                (
+                    [PlaceId] => 82495
+                    [IataCode] => SVO
+                    [Name] => Москва Шереметьево
+                    [Type] => Station
+                    [SkyscannerCode] => SVO
+                    [CityName] => Москва
+                    [CityId] => MOSC
+                    [CountryName] => Россия
+                )
+
+            [3] => stdClass Object
+                (
+                    [PlaceId] => 88879
+                    [IataCode] => VKO
+                    [Name] => Москва Внуково
+                    [Type] => Station
+                    [SkyscannerCode] => VKO
+                    [CityName] => Москва
+                    [CityId] => MOSC
+                    [CountryName] => Россия
+                )
+
+        )
+
+    [Carriers] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [CarrierId] => 242
+                    [Name] => Fly One
+                )
+
+            [1] => stdClass Object
+                (
+                    [CarrierId] => 469
+                    [Name] => Air Moldova
+                )
+
+            [2] => stdClass Object
+                (
+                    [CarrierId] => 1687
+                    [Name] => S7 Airlines
+                )
+
+            [3] => stdClass Object
+                (
+                    [CarrierId] => 1717
+                    [Name] => Aeroflot
+                )
+
+        )
+
+    [Currencies] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [Code] => MDL
+                    [Symbol] => lei
+                    [ThousandsSeparator] => ,
+                    [DecimalSeparator] => .
+                    [SymbolOnLeft] => 
+                    [SpaceBetweenAmountAndSymbol] => 1
+                    [RoundingCoefficient] => 0
+                    [DecimalDigits] => 2
+                )
+
+        )
+
+)
+
+
+
+
+
+        {"Quotes":[{"QuoteId":1,"MinPrice":2721.0,"Direct":true,"OutboundLeg":{"CarrierIds":[1717],"OriginId":63446,"DestinationId":82495,"DepartureDate":"2017-09-24T00:00:00"},"QuoteDateTime":"2017-09-20T20:31:50"},{"QuoteId":2,"MinPrice":2425.0,"Direct":true,"OutboundLeg":{"CarrierIds":[242],"OriginId":63446,"DestinationId":88879,"DepartureDate":"2017-09-24T00:00:00"},"QuoteDateTime":"2017-09-20T20:31:50"},{"QuoteId":3,"MinPrice":1954.0,"Direct":true,"OutboundLeg":{"CarrierIds":[1687],"OriginId":63446,"DestinationId":47493,"DepartureDate":"2017-09-24T00:00:00"},"QuoteDateTime":"2017-09-21T06:03:00"}],"Places":[{"PlaceId":47493,"IataCode":"DME","Name":"Москва Домодедово","Type":"Station","SkyscannerCode":"DME","CityName":"Москва","CityId":"MOSC","CountryName":"Россия"},{"PlaceId":63446,"IataCode":"KIV","Name":"Кишинёв","Type":"Station","SkyscannerCode":"KIV","CityName":"Кишинёв","CityId":"KIVA","CountryName":"Молдавия"},{"PlaceId":82495,"IataCode":"SVO","Name":"Москва Шереметьево","Type":"Station","SkyscannerCode":"SVO","CityName":"Москва","CityId":"MOSC","CountryName":"Россия"},{"PlaceId":88879,"IataCode":"VKO","Name":"Москва Внуково","Type":"Station","SkyscannerCode":"VKO","CityName":"Москва","CityId":"MOSC","CountryName":"Россия"}],"Carriers":[{"CarrierId":242,"Name":"Fly One"},{"CarrierId":469,"Name":"Air Moldova"},{"CarrierId":1687,"Name":"S7 Airlines"},{"CarrierId":1717,"Name":"Aeroflot"}],"Currencies":[{"Code":"MDL","Symbol":"lei","ThousandsSeparator":",","DecimalSeparator":".","SymbolOnLeft":false,"SpaceBetweenAmountAndSymbol":true,"RoundingCoefficient":0,"DecimalDigits":2}]}

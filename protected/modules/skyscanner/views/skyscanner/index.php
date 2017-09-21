@@ -1,6 +1,20 @@
 <div class="col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3">
-	<div class="card card-signup">
 
+	<?php if(!empty($errorMsgs)):?>
+		<div class="alert alert-danger">
+		    <div class="container-fluid">
+			  <div class="alert-icon">
+			    <i class="material-icons">error_outline</i>
+			  </div>
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true"><i class="material-icons">clear</i></span>
+			  </button>
+		      <b>Error Alert:</b> <?=$errorMsgs;?>
+		    </div>
+		</div>
+	<?php endif;?>
+
+	<div class="card card-signup">
 		<?php
 		  $form = $this->beginWidget('CActiveForm', array(
 		    'id'=>'form-search',
@@ -74,7 +88,7 @@
 			</div>
 
 			<div class="footer text-center">
-				<?php echo CHtml::submitButton('SEARCH', ['class'=>'btn btn-primary btn-round']);?>
+				<?php echo CHtml::submitButton('SEARCH', ['class'=>'btn btn-primary btn-round', 'id'=>'submit-search']);?>
 			</div>
 
 		<?php $this->endWidget(); ?>

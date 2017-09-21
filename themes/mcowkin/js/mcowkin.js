@@ -14,7 +14,7 @@ $(document).ready(function(){
     }).on('changeDate', function(ev) {
       if (ev.date.valueOf() > arrival.date.valueOf()) {
         var newDate = new Date(ev.date)
-        newDate.setDate(newDate.getDate() + 1);
+        newDate.setDate(newDate.getDate() + 7);
         arrival.setValue(newDate);
       }
       departure.hide();
@@ -32,20 +32,42 @@ $(document).ready(function(){
     // ---------------- DATEPICKER END
 
     // ---------------- AUTOSUGGEST START
+    // https://www.devbridge.com/sourcery/components/jquery-autocomplete/
     $.post("skyscanner/skyscanner/cityjson", function(data, status){
+        
         var countries = data;
 
         $('#SearchForm_flyfrom').autocomplete({
             lookup: countries,
+            minChars: 3,
+            maxHeight: 300,
+            showNoSuggestionNotice: true,
+            noSuggestionNotice: 'Please choose correct city!',
             onSelect: function (suggestion){
                 $('#SearchForm_flyfromhid').val(suggestion.data);
+                $('#SearchForm_flyfrom_em_').hide().text('');
+                $('#submit-search').prop('disabled', false);
+            },
+            onInvalidateSelection: function (){
+              $('#SearchForm_flyfrom_em_').show().text('please choose correct city');
+              $('#submit-search').prop('disabled', true);
             }
         });
 
         $('#SearchForm_flyto').autocomplete({
             lookup: countries,
+            minChars: 3,
+            maxHeight: 300,
+            showNoSuggestionNotice: true,
+            noSuggestionNotice: 'Please choose correct city!',
             onSelect: function (suggestion){
                 $('#SearchForm_flytohid').val(suggestion.data);
+                $('#SearchForm_flyto_em_').hide().text('');
+                $('#submit-search').prop('disabled', false);
+            },
+            onInvalidateSelection: function (){
+              $('#SearchForm_flyto_em_').show().text('please choose correct city');
+              $('#submit-search').prop('disabled', true);
             }
         });
 

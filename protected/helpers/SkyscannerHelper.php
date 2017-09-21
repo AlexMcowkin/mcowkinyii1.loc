@@ -38,4 +38,10 @@ class SkyscannerHelper
 		$geoplugin = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
 		return $geoplugin["geoplugin_countryCode"]; // MD
     }
+
+    public static function getGoodPrice($price, $symbol, $position)
+    {
+        // true == left
+        return ($position) ? $symbol.' '.$price : $price.' '.$symbol ;
+    }
 }
