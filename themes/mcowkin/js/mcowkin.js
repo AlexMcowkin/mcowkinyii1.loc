@@ -39,7 +39,7 @@ $(document).ready(function(){
 
         $('#SearchForm_flyfrom').autocomplete({
             lookup: countries,
-            minChars: 3,
+            minChars: 2,
             maxHeight: 300,
             showNoSuggestionNotice: true,
             noSuggestionNotice: 'Please choose correct city!',
@@ -56,7 +56,7 @@ $(document).ready(function(){
 
         $('#SearchForm_flyto').autocomplete({
             lookup: countries,
-            minChars: 3,
+            minChars: 2,
             maxHeight: 300,
             showNoSuggestionNotice: true,
             noSuggestionNotice: 'Please choose correct city!',

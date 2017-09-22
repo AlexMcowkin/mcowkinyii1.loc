@@ -61,78 +61,74 @@ class SkyscannerController extends Controller
 		$this->metaDescription = 'Result Result';
 		$this->metaKeywords = 'Result Result Result';
 
-		$country 				= $_GET['country'];
-		$currency 				= $_GET['currency'];
-		$locale 				= $_GET['locale'];
-		$originPlace 			= $_GET['originPlace'];
-		$destinationPlace 		= $_GET['destinationPlace'];
-		$outboundPartialDate 	= $_GET['outboundPartialDate'];
-		$inboundPartialDate 	= $_GET['inboundPartialDate'];
+		$country 				=  Yii::app()->input->xssClean($_GET['country']);
+		$currency 				=  Yii::app()->input->xssClean($_GET['currency']);
+		$locale 				=  Yii::app()->input->xssClean($_GET['locale']);
+		$originPlace 			=  Yii::app()->input->xssClean($_GET['originPlace']);
+		$destinationPlace 		=  Yii::app()->input->xssClean($_GET['destinationPlace']);
+		$outboundPartialDate 	=  Yii::app()->input->xssClean($_GET['outboundPartialDate']);
+		$inboundPartialDate 	=  Yii::app()->input->xssClean($_GET['inboundPartialDate']);
 
-		$link = "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/{$country}/{$currency}/{$locale}/{$originPlace}/{$destinationPlace}/{$outboundPartialDate}/{$inboundPartialDate}?apiKey=".Yii::app()->params['skyscannerApiKey'];
+		$responce = SkyscannerHelper::skyscannerGetBrowsequotes($country, $currency, $locale, $originPlace, $destinationPlace, $outboundPartialDate, $inboundPartialDate);
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $link);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $output = curl_exec($ch);
-        curl_close($ch);
-
-    	$result = json_decode($output);
-    	// var_dump($result);
-    	// die();
-
-		if(isset($result->ValidationErrors))
+		if(isset($responce->ValidationErrors))
 		{
-			$this->redirect(['/skyscanner/skyscanner/index', 'error' => $result->ValidationErrors[0]->Message]);
+			Yii::log("Problems with API",'mailerror','system.*');
+			$this->redirect(Yii::app()->homeUrl, ['error' => $responce->ValidationErrors[0]->Message]);
 		}
-		elseif(count($result->Quotes) == 0)
+		elseif(count($responce->Quotes) == 0)
 		{
-			$this->redirect(['/skyscanner/skyscanner/index', 'error' => 'There are no offers by your request']);
+			$this->redirect(Yii::app()->homeUrl, ['error' => 'There are no offers on your request']);
 		}
 		else
 		{
+			$result = SkyscannerHelper::browsequotesOutput($responce);
 
-			// $responce = '{"Quotes":[{"QuoteId":1,"MinPrice":2721.0,"Direct":true,"OutboundLeg":{"CarrierIds":[1717],"OriginId":63446,"DestinationId":82495,"DepartureDate":"2017-09-24T00:00:00"},"QuoteDateTime":"2017-09-20T20:31:50"},{"QuoteId":2,"MinPrice":2425.0,"Direct":true,"OutboundLeg":{"CarrierIds":[242],"OriginId":63446,"DestinationId":88879,"DepartureDate":"2017-09-24T00:00:00"},"QuoteDateTime":"2017-09-20T20:31:50"},{"QuoteId":3,"MinPrice":1954.0,"Direct":true,"OutboundLeg":{"CarrierIds":[1687],"OriginId":63446,"DestinationId":47493,"DepartureDate":"2017-09-24T00:00:00"},"QuoteDateTime":"2017-09-21T06:03:00"}],"Places":[{"PlaceId":47493,"IataCode":"DME","Name":"Москва Домодедово","Type":"Station","SkyscannerCode":"DME","CityName":"Москва","CityId":"MOSC","CountryName":"Россия"},{"PlaceId":63446,"IataCode":"KIV","Name":"Кишинёв","Type":"Station","SkyscannerCode":"KIV","CityName":"Кишинёв","CityId":"KIVA","CountryName":"Молдавия"},{"PlaceId":82495,"IataCode":"SVO","Name":"Москва Шереметьево","Type":"Station","SkyscannerCode":"SVO","CityName":"Москва","CityId":"MOSC","CountryName":"Россия"},{"PlaceId":88879,"IataCode":"VKO","Name":"Москва Внуково","Type":"Station","SkyscannerCode":"VKO","CityName":"Москва","CityId":"MOSC","CountryName":"Россия"}],"Carriers":[{"CarrierId":242,"Name":"Fly One"},{"CarrierId":469,"Name":"Air Moldova"},{"CarrierId":1687,"Name":"S7 Airlines"},{"CarrierId":1717,"Name":"Aeroflot"}],"Currencies":[{"Code":"MDL","Symbol":"lei","ThousandsSeparator":",","DecimalSeparator":".","SymbolOnLeft":false,"SpaceBetweenAmountAndSymbol":true,"RoundingCoefficient":0,"DecimalDigits":2}]}';
-		   
-		    // $result = json_decode($responce);
+			$this->render('result', ['result'=>$result]);
+		}
+	}
 
-			// air carrier
-			foreach ($result->Carriers as $carrier)
+	public function actionSubmit()
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			$model = new BookingModel();
+			
+			// save to DB
+			$model->departure_date 		= Yii::app()->input->xssClean(Yii::app()->request->getPost('departure_date'));
+			$model->departure_airport 	= Yii::app()->input->xssClean(Yii::app()->request->getPost('departure_airport_id'));
+			$model->arrival_airport 	= Yii::app()->input->xssClean(Yii::app()->request->getPost('arrival_airport_id'));
+			$model->aviacompany 		= Yii::app()->input->xssClean(Yii::app()->request->getPost('aircarrier_id'));
+			$model->price 				= Yii::app()->input->xssClean(Yii::app()->request->getPost('price'));
+			$model->save();
+
+			// send Msg
+			$result = $model->sendEmail(
+				$model->departure_date,
+				$model->departure_airport,
+				$model->arrival_airport,
+				$model->aviacompany,
+				$model->price
+			);
+
+			if($result)
 			{
-				$aircarrier[$carrier->CarrierId] = $carrier->Name; // 242 => Fly One
+				$this->render('thankyou');
 			}
-
-			// airport
-			foreach ($result->Places as $place)
+			else
 			{
-				$airport[$place->PlaceId] = $place->Name.', '.$place->CityName.', '.$place->CountryName; // 47493 => Москва Домодедово, Москва, Россия
+				$this->redirect(Yii::app()->homeUrl, ['error' => 'Something went wrong. Please try latter!!!']);
 			}
-
-			// collect main info
-			$i=0;
-			foreach ($result->Quotes as $quote)
-			{
-				$dest[$i]['price'] = SkyscannerHelper::getGoodPrice($quote->MinPrice, $result->Currencies[0]->Symbol, $result->Currencies[0]->SymbolOnLeft);
-				$dest[$i]['aircarrier'] = $aircarrier[$quote->OutboundLeg->CarrierIds[0]]; // 242
-				$dest[$i]['departure_airport'] = $airport[$quote->OutboundLeg->OriginId]; // 63446
-				$dest[$i]['arrival_airport'] = $airport[$quote->OutboundLeg->DestinationId]; // 82495
-				$dest[$i]['departure_date'] = date('d M, Y (l) H:i', strtotime($quote->OutboundLeg->DepartureDate)); // 2017-09-24T00:00:00
-				$dest[$i]['timetofly'] = 'undefined';
-				$i++;
-			}
-
-			// echo '<pre>';
-			// var_dump($dest);
-
-			$this->render('result', ['result'=>$dest]);
+		}
+		else
+		{
+			$this->redirect(Yii::app()->homeUrl);
 		}
 	}
 	
 	public function actionCityjson()
 	{
 		header('Content-type: application/json; charset=utf-8');
-		echo City::getCityList();
-		// Yii::app()->end();
+		echo CityModel::getCityList();
 	}
-
 }

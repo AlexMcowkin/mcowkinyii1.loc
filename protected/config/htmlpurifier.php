@@ -1,9 +1,5 @@
 <?php if ( ! defined('YII_PATH')) exit('No direct script access allowed');
 
-/*
-	this is cleaner for _GET and _POST variables
-*/
-
 return array(
 
     /*'Attr.AllowedRel'        =>  array('noindex','nofollow'),

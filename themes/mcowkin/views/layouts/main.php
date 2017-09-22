@@ -8,7 +8,7 @@
 	<meta name="keywords" content="<?php echo CHtml::encode($this->metaKeywords); ?>">
 	<base href="<?=Yii::app()->request->getBaseUrl(true); ?>">
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-	<!--     Fonts and icons     -->
+	<!-- Fonts and icons -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
@@ -17,7 +17,7 @@
     <link href="<?php echo Yii::app()->theme->baseUrl; ?>/css/material-kit.css" rel="stylesheet"/>
     <link href="<?php echo Yii::app()->theme->baseUrl; ?>/css/mcowkin.css" rel="stylesheet"/>
     <!-- favicon -->
-	<link rel="icon" type="image/x-icon" href="<?=Yii::app()->request->getBaseUrl(true); ?>/favicon.ico">
+	<link rel="icon" type="image/x-icon" href="<?=Yii::app()->request->getBaseUrl(true);?>/favicon.ico">
 </head>
 <body class="signup-page">
 	
@@ -36,14 +36,14 @@
 		            <span class="icon-bar"></span>
 		            <span class="icon-bar"></span>
         		</button>
-        		<a class="navbar-brand" href="https://makovkin.info">Makovkin</a>
+        		<a class="navbar-brand" href="<?=Yii::app()->homeUrl;?>">McOwkin <i class="material-icons">airplanemode_active</i> AirLines</a>
         	</div>
 
         	<div class="collapse navbar-collapse" id="navigation-example">
         		<ul class="nav navbar-nav navbar-right">
 		            <li>
-		                <a href="<?=Yii::app()->request->getBaseUrl(true);?>" class="btn btn-simple btn-white btn-just-icon">
-							<i class="fa fa-home"></i>
+		                <a href="https://github.com/AlexMcowkin" target="_blank" class="btn btn-simple btn-white btn-just-icon">
+							<i class="fa fa-git-square"></i>
 						</a>
 		            </li>
 		            <li>
@@ -57,7 +57,7 @@
     </nav>
 
     <div class="wrapper">
-		<div class="header header-filter" style="background-image: url('<?php echo Yii::app()->theme->baseUrl; ?>/img/city.jpg'); background-size: cover; background-position: top center;">
+		<div class="header header-filter" style="background-image: url('<?=Yii::app()->theme->baseUrl;?>/img/city.jpg'); background-size: cover; background-position: top center;">
 			<div class="container">
 				<div class="row">
 					<?php echo $content; ?>

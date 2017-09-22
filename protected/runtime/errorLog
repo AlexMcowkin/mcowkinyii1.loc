@@ -1,0 +1,22 @@
+2017/09/22 16:47:18 [error] [exception.CException] exception 'CException' with message 'CurrencyModel and its behaviors do not have a method or closure named "select".' in D:\openserver524\domains\yii1119\base\CComponent.php:266
+Stack trace:
+#0 D:\openserver524\domains\yii1119\db\ar\CActiveRecord.php(229): CComponent->__call('select', Array)
+#1 D:\openserver524\domains\mcowkinyii1.loc\protected\modules\skyscanner\models\CurrencyModel.php(32): CActiveRecord->__call('select', Array)
+#2 D:\openserver524\domains\mcowkinyii1.loc\protected\modules\skyscanner\models\CurrencyModel.php(32): CurrencyModel->select('code')
+#3 D:\openserver524\domains\mcowkinyii1.loc\protected\modules\skyscanner\views\skyscanner\index.php(100): CurrencyModel::getCurrencyArr()
+#4 D:\openserver524\domains\yii1119\web\CBaseController.php(126): require('D:\\openserver52...')
+#5 D:\openserver524\domains\yii1119\web\CBaseController.php(95): CBaseController->renderInternal('D:\\openserver52...', Array, true)
+#6 D:\openserver524\domains\yii1119\web\CController.php(872): CBaseController->renderFile('D:\\openserver52...', Array, true)
+#7 D:\openserver524\domains\yii1119\web\CController.php(785): CController->renderPartial('index', Array, true)
+#8 D:\openserver524\domains\mcowkinyii1.loc\protected\modules\skyscanner\controllers\SkyscannerController.php(54): CController->render('index', Array)
+#9 D:\openserver524\domains\yii1119\web\actions\CInlineAction.php(49): SkyscannerController->actionIndex()
+#10 D:\openserver524\domains\yii1119\web\CController.php(308): CInlineAction->runWithParams(Array)
+#11 D:\openserver524\domains\yii1119\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#12 D:\openserver524\domains\yii1119\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 D:\openserver524\domains\yii1119\web\CWebApplication.php(282): CController->run('')
+#14 D:\openserver524\domains\yii1119\web\CWebApplication.php(141): CWebApplication->runController('skyscanner')
+#15 D:\openserver524\domains\yii1119\base\CApplication.php(185): CWebApplication->processRequest()
+#16 D:\openserver524\domains\mcowkinyii1.loc\index.php(17): CApplication->run()
+#17 {main}
+REQUEST_URI=/
+---

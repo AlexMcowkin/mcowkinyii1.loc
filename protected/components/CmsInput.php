@@ -29,6 +29,10 @@
  *   it would return an empty string(thanks to Wiseon3 [http://www.yiiframework.com/user/13664/] who pointed it out)
  * - logging will occur just in debug mode from now on.
  * - changed the default cleaning method to from stripCleanEncode to stripClean
+ * 
+ * 1.3
+ * - Updated CodeIgniter Security class
+ * - Improved the stripTags method so that encoded chars won't go through anymore (thanks Jos Wetzels (a.l.g.m.wetzels@gmail.com))
  */
 class CmsInput extends CApplicationComponent
 {
@@ -120,7 +124,10 @@ class CmsInput extends CApplicationComponent
             foreach($str AS $k=>$v) 
                 $str[$k]=$this->stripTags($v, $encode);
             return $str;
-        }     
+        }  
+           
+        $str=rawurldecode($str);
+        $str=CHtml::decode($str);
         $str=trim(strip_tags($str));
         
         if($encode) 
@@ -164,7 +171,7 @@ class CmsInput extends CApplicationComponent
      */
     public function stripClean($str)
     {
-        return $this->xssClean($this->stripTags($str));
+        return $this->stripTags($this->xssClean($str));
     }
     
     /**
