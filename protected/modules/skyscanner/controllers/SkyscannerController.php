@@ -12,15 +12,6 @@ class SkyscannerController extends Controller
 		$this->metaDescription = 'Search Search';
 		$this->metaKeywords = 'Search Search Search';
 
-		if(isset($_GET['error']))
-		{
-			$errorMsgs = $_GET['error'];
-		}
-		else
-		{
-			$errorMsgs = '';
-		}
-
 		$model = new SearchForm();
 
 		if(isset($_POST['ajax']))
@@ -51,7 +42,7 @@ class SkyscannerController extends Controller
 			}
 		}
 
-		$this->render('index', ['model'=>$model, 'errorMsgs'=>$errorMsgs]);
+		$this->render('index', ['model'=>$model]);
 	}
 
 	// https://skyscanner.github.io/slate/#flights-browse-prices
@@ -74,16 +65,17 @@ class SkyscannerController extends Controller
 		if(isset($responce->ValidationErrors))
 		{
 			Yii::log("Problems with API",'mailerror','system.*');
-			$this->redirect(Yii::app()->homeUrl, ['error' => $responce->ValidationErrors[0]->Message]);
+			Yii::app()->user->setFlash('error', $responce->ValidationErrors[0]->Message);
+			$this->redirect(Yii::app()->homeUrl);
 		}
 		elseif(count($responce->Quotes) == 0)
 		{
-			$this->redirect(Yii::app()->homeUrl, ['error' => 'There are no offers on your request']);
+			Yii::app()->user->setFlash('error', 'There are no offers on your request');
+			$this->redirect(Yii::app()->homeUrl);
 		}
 		else
 		{
 			$result = SkyscannerHelper::browsequotesOutput($responce);
-
 			$this->render('result', ['result'=>$result]);
 		}
 	}
@@ -117,7 +109,8 @@ class SkyscannerController extends Controller
 			}
 			else
 			{
-				$this->redirect(Yii::app()->homeUrl, ['error' => 'Something went wrong. Please try latter!!!']);
+				Yii::app()->user->setFlash('error', 'Something went wrong. Please try latter!!!');
+				$this->redirect(Yii::app()->homeUrl);
 			}
 		}
 		else

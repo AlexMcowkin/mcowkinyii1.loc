@@ -1,6 +1,6 @@
 <div class="col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3">
 
-	<?php if(!empty($errorMsgs)):?>
+	<?php if(Yii::app()->user->hasFlash('error')):?>
 		<div class="alert alert-danger">
 		    <div class="container-fluid">
 			  <div class="alert-icon">
@@ -9,7 +9,7 @@
 			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true"><i class="material-icons">clear</i></span>
 			  </button>
-		      <b>Error Alert:</b> <?=$errorMsgs;?>
+		      <b>Error Alert:</b> <?=Yii::app()->user->getFlash('error');?>
 		    </div>
 		</div>
 	<?php endif;?>
